@@ -1,0 +1,5 @@
+{
+    "name": "Validate",
+    "link": "/apps/validate",
+    "provider": "/src/ServiceProvider.pm"
+}
