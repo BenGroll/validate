@@ -1,0 +1,16 @@
+<div>
+
+    <nav class="customnav" id ="customnav" style="display: flex; justify-content: space-around; align-items: center;"> 
+
+        <span style="font-size:x-large;">Configure the Password Validation Service</span>
+
+    </nav><br>
+    <a class="transition duration-500 rounded border-r-4 px-2 pt-1 pb-2 hover:text-slate-500 hover:bg-slate-50 hover:cursor-pointer <TMPL_IF NAME=active> bg-slate-50 <TMPL_ELSE> text-slate-50 bg-slate-500 </TMPL_IF>" href="validate/test">Test Button</a>
+    <div class="flex justify-center text-2xl text-slate-500 mt-32">
+        <div class="flex flex-col">
+            <TMPL_VAR NAME="configtable">
+        </div>
+
+    </div>
+
+</div>

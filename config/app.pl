@@ -1,9 +1,0 @@
-return {
-
-    b => {
-
-        c => 'helloooooo!',
-
-    },
-
-};

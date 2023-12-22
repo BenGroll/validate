@@ -1,0 +1,15 @@
+<tr> 
+    <td style="padding: 15px;"> 
+        <label for="<TMPL_VAR NAME="paramname">"></label> 
+            <TMPL_VAR NAME="paramnamepolished">
+        </label> 
+        </td> 
+        <td>
+            <input name="<TMPL_VAR NAME="paramname">" style="display:flex; border: 1px solid;" type="<TMPL_VAR NAME="inputType">" id="<TMPL_VAR NAME="paramname">" value="<TMPL_VAR NAME='value'>"/> 
+        </td>
+    <td> 
+    <td style="text-align:center; vertical-align: middle;"> 
+        <input name="use<TMPL_VAR NAME="paramname">" type="checkbox" id="use<TMPL_VAR NAME="paramname">" <TMPL_IF NAME="usevalue">checked</TMPL_IF>>
+    </td>
+    
+</tr> 

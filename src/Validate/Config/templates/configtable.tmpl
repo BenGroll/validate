@@ -1,0 +1,13 @@
+<table> 
+    <form action="" method="GET"> 
+        <tr>
+            <td style="padding: 15px;"><b>Parameter</b></td>
+            <td style="padding: 15px;"><b>Value</b></td>
+            <td style="padding: 15px;"><b>Use?</b></td>
+        </tr>
+        <TMPL_LOOP NAME="rows">
+            <TMPL_VAR NAME="row">
+        </TMPL_LOOP>
+        <input type="submit" value="Test and Save" class="transition duration-500 rounded border-r-4 px-2 pt-1 pb-2 hover:text-slate-500 hover:bg-slate-50 hover:cursor-pointer <TMPL_IF NAME=active> bg-slate-50 <TMPL_ELSE> text-slate-50 bg-slate-500 </TMPL_IF>" href="%link%"></input>
+    </form> 
+</table> 

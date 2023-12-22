@@ -6,8 +6,11 @@ use parent qw(
 
 use strict;
 use warnings;
+push @INC, getFolder() . 'Validate';
 
+use Data::Dumper;
 use Foundation::Appify;
+require (getFolder() . 'Validate/Validator.pm');
 
 # The parent service provider handles the default behaviour.
 # Add additional functionality in here.
@@ -25,7 +28,10 @@ sub register {
     });
 
     # Catch the event in case a password is about to be validated.
-    app()->subscribe('Foundation::Events::ValidatingPassword', sub {
+    app()->subscribe('Foundation::Events::ValidatingPassword', sub {        
+        # This does not get reached, why???
+        # What should happen:
+        # my @errors = Validate::Validator->validate($event->password)
 
         my $event = shift;
 
@@ -36,7 +42,11 @@ sub register {
             # abort('Wow, what a password.', 422);
 
         }
-
+        my $validator = Validate::Validator->new("Validate::Config::Json");
+        my @errors = $validator->validate($event->password())->errors();
+        if (scalar @errors > 0) {
+            abort (join ('\n', @errors), 422);
+        }
         return;
 
     });
@@ -77,6 +87,11 @@ sub gateway {
     $gateway->{name} = lc $gateway->{name};
 
     return $gateway;
+}
+sub getFolder {
+    return join ('/', splice(@{[split(/\//, __FILE__)]},
+        0, 
+        scalar @{[split(/\//, __FILE__)]} -1)) . "/";
 }
 
 1;

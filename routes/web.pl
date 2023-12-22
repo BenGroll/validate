@@ -42,11 +42,24 @@ Http::Route::group({
         Http::Route::get('/', sub {
 
             my $request = shift;
+            $request->{configcontroller} = "Validate::Config::DB";
 
             # TODO: Implement default controller routing instead of creating
             # TODO: an instance of the controller class.
 
             return Validate::Http::Controllers::Controller->new()->welcome(
+                $request,
+            );
+
+        }),
+        Http::Route::get('/test', sub {
+
+            my $request = shift;
+            $request->{configcontroller} = "Validate::Config::DB";
+            # TODO: Implement default controller routing instead of creating
+            # TODO: an instance of the controller class.
+
+            return Validate::Http::Controllers::Controller->new()->test(
                 $request,
             );
 

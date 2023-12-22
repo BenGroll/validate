@@ -5,6 +5,15 @@ use warnings;
 
 use Foundation::Appify;
 
+my $folder = getFolder();
+# unshift @INC, $folder . '../../Validate';
+use Data::Dumper;
+use JSON;
+use Validate::Config::Json;
+use Validate::Config::DB;
+use Validate::Config::Table;
+
+
 sub new {
     my $class = shift;
 
@@ -18,28 +27,48 @@ sub welcome {
     my $self = shift;
     my $request = shift;
 
-    app()->pushToStack('scripts', servicePath('validate') . '/script.js');
+    my $configcontroller = $request->{configcontroller};
+    
+    my $params = \%{$request->Vars};
+    my $folder = getFolder();
 
-    my $template = &_::template('validate::welcome', {
-        email => user()->get('email'),
-    });
+    my $configData = $configcontroller->new()->active();
 
-    return $template->output();
+    my $index = Validate::Config::Table->new($configData);
+
+    my $table = $index->render();
+    my $template = &_::template('validate::config', {configtable => $table});
+    
+    return $template->output;
 }
 
-sub dashboard {
+sub test {
     my $self = shift;
     my $request = shift;
 
-    # TODO: Do something useful.
+    my $configcontroller = $request->{configcontroller};
+    # die $configcontroller;
+    
+    my $params = \%{$request->Vars};
+    my $folder = getFolder();
 
-    app()->pushToStack('scripts', servicePath('validate') . '/script.js');
+    my $configData = $configcontroller->new()->active();
+    # die Dumper($configData);
 
-    my $template = &_::template('validate::dashboard', {
-        #
-    });
+    app()->pushToStack('scripts', servicePath('validationService') . '/script.js');
 
-    return $template->output();
+    my $form = &_::template('validate::welcome', paramsForFormSite($configData));
+
+    return $form->output;
+}
+
+sub paramsForFormSite {
+    my $configData = shift;
+    return {
+        config => encode_json($configData),
+        unamelength => $configData->{"minimum_username_length"}->{value},
+        pwordlength => $configData->{"minimum_length"}->{value}
+        }
 }
 
 sub showMessage {
@@ -49,6 +78,13 @@ sub showMessage {
     # TODO: Do something useful.
 
     return $self->welcome($request);
+}
+
+
+sub getFolder {
+    return join ('/', splice(@{[split(/\//, __FILE__)]},
+        0, 
+        scalar @{[split(/\//, __FILE__)]} -1)) . "/";
 }
 
 1;

@@ -1,0 +1,32 @@
+{
+    "valid_characters": {
+        "inputType": "text",
+        "value": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        "use": 0
+    },
+    "minimum_length": {
+        "inputType": "number",
+        "value": "0",
+        "use": 0
+    },
+    "expected_specialcharacter_count": {
+        "value": "0",
+        "inputType": "number",
+        "use": 0
+    },
+    "special_characters": {
+        "value": "!&?",
+        "inputType": "text",
+        "use": 0
+    },
+    "expected_number_count": {
+        "use": 1,
+        "value": "3",
+        "inputType": "number"
+    },
+    "minimum_username_length": {
+        "use": 1,
+        "value": "3",
+        "inputType": "number"
+    }
+}
