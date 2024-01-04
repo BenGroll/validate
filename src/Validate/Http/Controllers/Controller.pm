@@ -55,7 +55,7 @@ sub test {
     my $configData = $configcontroller->new()->active();
     # die Dumper($configData);
 
-    app()->pushToStack('scripts', servicePath('validationService') . '/script.js');
+    # app()->pushToStack('scripts', servicePath('validationService') . '/script.js');
 
     my $form = &_::template('validate::welcome', paramsForFormSite($configData));
 
@@ -68,7 +68,7 @@ sub paramsForFormSite {
         config => encode_json($configData),
         unamelength => $configData->{"minimum_username_length"}->{value},
         pwordlength => $configData->{"minimum_length"}->{value}
-        }
+    };
 }
 
 sub showMessage {

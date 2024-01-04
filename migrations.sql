@@ -1,4 +1,4 @@
--- @block #Create Validation Configuration Table
+-- @block Create Validation Configurations Table
 DROP TABLE IF EXISTS validation_configurations;
 CREATE TABLE validation_configurations (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

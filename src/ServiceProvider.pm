@@ -7,7 +7,6 @@ use parent qw(
 use strict;
 use warnings;
 push @INC, getFolder() . 'Validate';
-
 use Data::Dumper;
 use Foundation::Appify;
 require (getFolder() . 'Validate/Validator.pm');
@@ -28,10 +27,13 @@ sub register {
     });
 
     # Catch the event in case a password is about to be validated.
-    app()->subscribe('Foundation::Events::ValidatingPassword', sub {        
-        # This does not get reached, why???
-        # What should happen:
-        # my @errors = Validate::Validator->validate($event->password)
+    app()->subscribe('Foundation::Events::ValidatingPassword', sub {
+        my $event = shift;
+
+        my @errors = Validate::Validator->new("Validate::Config::DB")->validate($event->password)->{errors};
+        if (scalar @errors > 0) {
+            die Dumper(@errors);
+        }
 
         my $event = shift;
 

@@ -28,17 +28,15 @@ sub new {
 sub welcome {
     my $self = shift;
     my $request = shift;
-    die;
-    my $configSaveMode = $request->{configSaveMode};
+    my $configcontroller = $request->{configcontroller};
     my $params = \%{$request->Vars};
     delete($params->{__route__});
     if(scalar (keys %$params) > 1) {
         return $self->configPOST($request, $params);
     }
     
-    my $configData = $configSaveMode->active();
+    my $configData = $configcontroller->active();
     my $table = Validate::Config::Table->new($configData);
-
 
     my $template = &_::template('validationService::config', {configtable => $table->render});
 
@@ -51,7 +49,7 @@ sub configPOST {
     my $params = shift;
     my $configSaveMode = $request->{configSaveMode};
 
-    my $newConfig = Validate::Validator->validateConfig($params);
+    my $newConfig = Validate::Validator->make_config($params);
     $configSaveMode->setAsActive($newConfig);   
 
     my $configData = $configSaveMode->active();

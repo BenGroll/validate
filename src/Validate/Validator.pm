@@ -45,7 +45,7 @@ sub fetchErrorsForStack {
 }
 
 sub validate {
-    my $self = shift,
+    my $self = shift;
     my @stringToValidate = split(//, shift());
     my $config = $self->{config};
     foreach my $validation (sort(keys %$config)) {
@@ -73,6 +73,15 @@ sub validate_minimum_length {
     
     if (scalar @$stringToValidate < $length) {
         return "Must be at least $length characters long.";
+    }
+}
+sub validate_minimum_username_length {
+    my $self = shift;
+    my $length = shift;
+    my $stringToValidate = shift;
+    
+    if (scalar @$stringToValidate < $length) {
+        return "Username Must be at least $length characters long.";
     }
 }
 
@@ -135,7 +144,7 @@ sub validate_expected_number_count {
     }
 }
 
-sub validate_config {
+sub make_config {
     my $self = shift;
     my $configParams = shift;
     
